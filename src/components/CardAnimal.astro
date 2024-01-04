@@ -1,0 +1,43 @@
+---
+interface Props {
+  animal: {
+    name: string;
+    image: string;
+    adoptable: boolean;
+    breed: string;
+    gendre: string;
+    age: string;
+  }
+}
+
+const { name, image, adoptable, breed, gendre, age } = Astro.props.animal
+const adoptableText = adoptable ? 'Adoptable' : 'No adoptable'
+
+---
+
+<a href=`${name}`
+   class="rounded-lg border shadow-md bg-gray-800 border-gray-700 hover:scale-105 hover:bg-gray-700 hover:border-gray-500 transition flex flex-col">
+  
+    <picture class="flex justify-center p-4">
+      <img id="animal-image" class="mb-5 rounded-lg" src={image} alt=`Image for animal ${name}` 
+      onerror="this.onerror=null;this.src='/generic-dog.webp'"/>
+    </picture>
+
+    <header class="p-4">
+      <span class:list={[
+        "text-xs font-semibold mr-2 px-2.5 py-0.5 rounded",
+        {
+          'bg-green-200 text-green-900' : adoptable,
+          'bg-red-200 text-red-900': !adoptable
+        }
+      ]}>
+        {adoptableText}
+      </span>
+
+      <h2 class="my-2 text-2xl font-bold tracking-tight text-white">{name}</h2>
+      <p class="font-light text-gray-400">{breed}</p>
+      <p class="font-light text-gray-400">{gendre}</p>
+      <p class="font-light text-gray-400">{age}</p>
+    </header>
+</a>
+

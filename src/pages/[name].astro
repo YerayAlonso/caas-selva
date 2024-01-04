@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getAnimalDetails } from '../services/caas-scrapping';
+
+const { name } = Astro.params
+
+let animal
+if (name) {
+  animal = await getAnimalDetails({name})
+}
+
+
+---
+
+<Layout title={`${name} del CAAS`}>
+  <article class="flex flex-col gap-y-4">
+    <h1 class="text-white text-3xl font-bold">{name}</h1>
+    <p class="text-white">{animal?.id}</p>
+    <p class="text-white">{animal?.specie}</p>
+    <p class="text-white">{animal?.breed}</p>
+    <p class="text-white">{animal?.gendre}</p>
+    <p class="text-white">{animal?.size}</p>
+    <p class="text-white">{animal?.age}</p>
+    <p class="text-white">{animal?.color}</p>
+    <p class="text-white">{animal?.origin}</p>
+    <p class="text-white">{animal?.checkInDate}</p>
+  </article>
+</Layout>
