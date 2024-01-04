@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@astrojs/tailwind": "5.1.0",
-    "@astrojs/vercel": "^6.1.2",
+    "@astrojs/vercel": "6.1.2",
     "@extractus/article-extractor": "^8.0.4",
     "astro": "4.0.9",
     "cheerio": "1.0.0-rc.12",
