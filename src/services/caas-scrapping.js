@@ -1,47 +1,50 @@
-import { extract } from "@extractus/article-extractor";
 import * as cheerio from "cheerio";
 
-export async function getAnimals() {
-  const url = "https://caas.selva.cat/registre.php";
-  const data = await extract(url);
-  const content = data.content;
+const CAAS_URL = "https://caas.selva.cat";
 
-  const $ = cheerio.load(content);
-  const animalLinks = $("a[href^='https://caas.selva.cat/animal.php?']");
+export async function getAnimals() {
+  const url = `${CAAS_URL}/registre.php`;
+  const data = await fetch(url);
+  const html = await data.text();
+
+  const $ = cheerio.load(html);
+  const animalLinks = $("table a[href^='animal.php?']");
   const animals = [];
 
   animalLinks.each(async (_, element) => {
-    const href = $(element).attr("href");
-    const image = $(element).children("img").attr("src");
+    const href = `${CAAS_URL}/${$(element).attr("href")}`;
+    const image = `${CAAS_URL}/${$(element).children("img").attr("src")}`;
     const name = href.split("?")[1];
+
+    let rawDetails = $(element)
+      .html()
+      .trim()
+      .split("\n")[1]
+      .trim()
+      .replace('<div class="lletra_vermella">', "");
+
+    if (rawDetails.endsWith("<br>")) {
+      rawDetails = rawDetails.slice(0, -4);
+    }
+
+    const adoptable = !rawDetails.startsWith("Encara No es pot adoptar");
+    const cleanDetails = adoptable ? rawDetails : rawDetails.split("</div>")[1];
 
     const animal = {
       name,
       image,
       href,
+      adoptable,
     };
-
-    if (!image) {
-      console.log(name);
-    }
-
-    const rawDetails = $(element).html().trim().split("\n")[1].trim();
-
-    animal.adoptable = !rawDetails.startsWith(
-      "<p>Encara No es pot adoptar</p>"
-    );
-    const cleanDetails = animal.adoptable
-      ? rawDetails
-      : rawDetails.split("</p>")[1];
 
     if (cleanDetails.startsWith("<h4>")) {
       const details = cleanDetails.split("</h4>")[1].split("<br>");
       animal.breed = details[0];
       animal.gendre = details[1];
       animal.age = details[2];
-    }
 
-    animals.push(animal);
+      animals.push(animal);
+    }
   });
 
   return animals;

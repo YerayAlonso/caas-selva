@@ -19,8 +19,8 @@ const adoptableText = adoptable ? 'Adoptable' : 'No adoptable'
    class="rounded-lg border shadow-md bg-gray-800 border-gray-700 hover:scale-105 hover:bg-gray-700 hover:border-gray-500 transition flex flex-col">
   
     <picture class="flex justify-center p-4">
-      <img id="animal-image" class="mb-5 rounded-lg" src={image} alt=`Image for animal ${name}` 
-      onerror="this.onerror=null;this.src='/generic-dog.webp'"/>
+      <img id="animal-image" class="mb-5 rounded-lg" src={image} alt=`Animal ${name}` 
+      onerror="this.onerror=null;this.src='/generic-dog.png';this.classList.add('bg-slate-500/80')"/>
     </picture>
 
     <header class="p-4">
