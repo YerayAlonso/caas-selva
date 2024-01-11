@@ -1,28 +1,27 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { getAnimalDetails } from '../services/caas-scrapping';
+import Layout from "$layouts/Layout.astro";
+import { getAnimalDetails } from '$services/caas-scrapping';
 
 const { name } = Astro.params
+const animal = await getAnimalDetails({name})
 
-let animal
-if (name) {
-  animal = await getAnimalDetails({name})
+if (!animal) {
+  return Astro.redirect('/404')
 }
-
 
 ---
 
 <Layout title={`${name} del CAAS`}>
   <article class="flex flex-col gap-y-4">
-    <h1 class="text-white text-3xl font-bold">{name}</h1>
-    <p class="text-white">{animal?.id}</p>
-    <p class="text-white">{animal?.specie}</p>
-    <p class="text-white">{animal?.breed}</p>
-    <p class="text-white">{animal?.gendre}</p>
-    <p class="text-white">{animal?.size}</p>
-    <p class="text-white">{animal?.age}</p>
-    <p class="text-white">{animal?.color}</p>
-    <p class="text-white">{animal?.origin}</p>
-    <p class="text-white">{animal?.checkInDate}</p>
+    <h1 class="text-3xl font-bold">{name}</h1>
+    <p>{animal?.id}</p>
+    <p>{animal?.specie}</p>
+    <p>{animal?.breed}</p>
+    <p>{animal?.gendre}</p>
+    <p>{animal?.size}</p>
+    <p>{animal?.age}</p>
+    <p>{animal?.color}</p>
+    <p>{animal?.origin}</p>
+    <p>{animal?.checkInDate}</p>
   </article>
 </Layout>

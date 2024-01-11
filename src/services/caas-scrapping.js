@@ -40,7 +40,7 @@ export async function getAnimals() {
     if (cleanDetails.startsWith("<h4>")) {
       const details = cleanDetails.split("</h4>")[1].split("<br>");
       animal.breed = details[0];
-      animal.gendre = details[1];
+      animal.sex = details[1];
       animal.age = details[2];
 
       animals.push(animal);
@@ -53,13 +53,16 @@ export async function getAnimals() {
 export async function getAnimalDetails({ name }) {
   const url = `https://caas.selva.cat/animal.php?${name}`;
   const data = await fetch(url);
+  if (data.url != url) {
+    return;
+  }
   const html = await data.text();
 
   const $ = cheerio.load(html);
   const id = $("table table td:contains('Número de registre') + td").text();
   const specie = $("table table td:contains('Especie') + td").text();
   const breed = $("table table td:contains('Raça') + td").text();
-  const gendre = $("table table td:contains('Sexe') + td").text();
+  const sex = $("table table td:contains('Sexe') + td").text();
   const size = $("table table td:contains('Mida') + td").text();
   const age = $("table table td:contains('Edat') + td").text();
   const color = $("table table td:contains('Color') + td").text();
@@ -75,7 +78,7 @@ export async function getAnimalDetails({ name }) {
     id,
     specie,
     breed,
-    gendre,
+    sex,
     size,
     age,
     color,

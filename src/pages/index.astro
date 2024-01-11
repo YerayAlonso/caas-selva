@@ -1,9 +1,12 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Animals from '../components/Animals.astro';
+  import { getAnimals } from "$services/caas-scrapping";
+import Layout from '$layouts/Layout.astro';
+import Animals from '$components/Animals.svelte';
+
+const animals = await getAnimals()
 ---
 
 <Layout title="Centre d'acollida d'animals a la Selva | CAAS">
-	<Animals  />
+	<Animals client:load {animals} />
 </Layout>
 
