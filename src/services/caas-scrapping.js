@@ -51,7 +51,7 @@ export async function getAnimals() {
 }
 
 export async function getAnimalDetails({ name }) {
-  const url = `https://caas.selva.cat/animal.php?${name}`;
+  const url = `${CAAS_URL}/animal.php?${name}`;
   const data = await fetch(url);
   if (data.url != url) {
     return;
@@ -73,6 +73,11 @@ export async function getAnimalDetails({ name }) {
     "table table td:contains('Data d'entrada al CAAS') + td"
   ).text();
 
+  const images = [];
+  $("table table td img").each((_, element) => {
+    images.push(`${CAAS_URL}/${$(element).attr("src")}`);
+  });
+
   const animal = {
     name,
     id,
@@ -84,6 +89,7 @@ export async function getAnimalDetails({ name }) {
     color,
     origin,
     checkInDate,
+    images,
   };
   return animal;
 }
