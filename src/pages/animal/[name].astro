@@ -12,8 +12,8 @@ if (!animal) {
 <Layout title={`${name} del CAAS`}>
   <article class="flex flex-col gap-y-4">
     <h1 class="text-3xl font-bold">{name}</h1>
-    <div class="grid sm:grid-cols-2">
-      <div class="flex flex-col gap-y-4">
+    <div class="grid gap-y-4 sm:grid-cols-2">
+      <div class="flex flex-col gap-y-4 items-center">
         {animal.images.map((image) => (
           <img class="rounded-lg aspect-[4/3] object-cover w-64" src={image} alt={name} />
         ))}
