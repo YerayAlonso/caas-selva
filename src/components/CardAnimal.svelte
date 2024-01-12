@@ -12,7 +12,7 @@
   <picture class="flex justify-center p-4">
     <img
       id="animal-image"
-      class="mb-5 rounded-lg"
+      class="rounded-lg aspect-[4/3] object-cover"
       src={image}
       alt="Animal ${name}"
       onerror="this.onerror=null;this.src='/generic-dog.png';this.classList.add('bg-slate-500/80')"
