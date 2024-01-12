@@ -8,20 +8,70 @@ const animal = await getAnimalDetails({name})
 if (!animal) {
   return Astro.redirect('/404')
 }
-
 ---
-
 <Layout title={`${name} del CAAS`}>
   <article class="flex flex-col gap-y-4">
     <h1 class="text-3xl font-bold">{name}</h1>
-    <p>{animal?.id}</p>
-    <p>{animal?.specie}</p>
-    <p>{animal?.breed}</p>
-    <p>{animal?.gendre}</p>
-    <p>{animal?.size}</p>
-    <p>{animal?.age}</p>
-    <p>{animal?.color}</p>
-    <p>{animal?.origin}</p>
-    <p>{animal?.checkInDate}</p>
+    <div class="relative overflow-x-auto">
+      <table class="text-sm text-left rtl:text-right text-gray-400">
+        <tbody>
+          {animal?.id && (
+            <tr class=" border-b bg-gray-800 border-gray-700">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-white">Número de registre</th>
+              <td class="px-6 py-4">{animal?.id}</td>
+            </tr>
+          )}
+          {animal?.specie && (
+            <tr class=" border-b bg-gray-800 border-gray-700">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-white">Especie</th>
+              <td class="px-6 py-4">{animal?.specie}</td>
+            </tr>
+          )}
+          {animal?.breed && (
+            <tr class=" border-b bg-gray-800 border-gray-700">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-white">Raça</th>
+              <td class="px-6 py-4">{animal?.breed}</td>
+            </tr>
+          )}
+          {animal?.sex && (
+            <tr class=" border-b bg-gray-800 border-gray-700">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-white">Sexe</th>
+              <td class="px-6 py-4">{animal?.sex}</td>
+            </tr>
+          )}
+          {animal?.size && (
+            <tr class=" border-b bg-gray-800 border-gray-700">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-white">Mida</th>
+              <td class="px-6 py-4">{animal?.size}</td>
+            </tr>
+          )}
+          {animal?.age && (
+            <tr class=" border-b bg-gray-800 border-gray-700">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-white">Edat</th>
+              <td class="px-6 py-4">{animal?.age}</td>
+            </tr>
+          )}
+          {animal?.color && (
+            <tr class=" border-b bg-gray-800 border-gray-700">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-white">Color</th>
+              <td class="px-6 py-4">{animal?.color}</td>
+            </tr>
+          )}
+          {animal?.origin && (
+            <tr class=" border-b bg-gray-800 border-gray-700">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-white">Municipi de recollida</th>
+              <td class="px-6 py-4">{animal?.origin}</td>
+            </tr>
+          )}
+          {animal?.checkInDate && (
+            <tr class=" border-b bg-gray-800 border-gray-700">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-white">Data d'entrada</th>
+              <td class="px-6 py-4">{animal?.checkInDate}</td>
+            </tr>
+          )}
+          
+        </tbody>
+      </table>
+    </div>
   </article>
 </Layout>
