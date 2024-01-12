@@ -6,7 +6,7 @@
 </script>
 
 <a
-  href="animal/${name}"
+  href="animal/{name}"
   class="rounded-lg border shadow-md bg-gray-800 border-gray-700 hover:scale-105 hover:bg-gray-700 hover:border-gray-500 transition flex flex-col"
 >
   <picture class="flex justify-center p-4">
@@ -14,7 +14,7 @@
       id="animal-image"
       class="rounded-lg aspect-[4/3] object-cover"
       src={image}
-      alt="Animal ${name}"
+      alt="Animal {name}"
       onerror="this.onerror=null;this.src='/generic-dog.png';this.classList.add('bg-slate-500/80')"
     />
   </picture>
