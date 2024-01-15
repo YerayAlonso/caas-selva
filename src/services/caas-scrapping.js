@@ -1,4 +1,5 @@
 import * as cheerio from "cheerio";
+import { stat_labels } from "$lib/constants";
 
 const CAAS_URL = "https://caas.selva.cat";
 
@@ -78,6 +79,17 @@ export async function getAnimalDetails({ name }) {
     images.push(`${CAAS_URL}/${$(element).attr("src")}`);
   });
 
+  const stats = stat_labels;
+
+  $("table table td.casella_selec").each((_, element) => {
+    const text = $($(element).parent().children()[0]).text();
+    const value = $(element).parent().children().index($(element));
+    const stat = stats.find((stat) => stat.label === text);
+    if (stat) {
+      stat.value = 4 - value;
+    }
+  });
+
   const animal = {
     name,
     id,
@@ -90,6 +102,7 @@ export async function getAnimalDetails({ name }) {
     origin,
     checkInDate,
     images,
+    stats,
   };
   return animal;
 }

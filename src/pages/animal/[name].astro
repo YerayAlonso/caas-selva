@@ -1,6 +1,7 @@
 ---
 import Layout from "$layouts/Layout.astro";
 import { getAnimalDetails } from '$services/caas-scrapping';
+import StatIcon from '$components/StatIcon.astro';
 
 const { name } = Astro.params
 const animal = await getAnimalDetails({name})
@@ -80,6 +81,11 @@ if (!animal) {
           </tbody>
         </table>
       </div>
+    </div>
+    <div class="flex gap-x-4 justify-center">
+      {animal.stats.map((stat) => (
+        <StatIcon stat={stat}></StatIcon>
+      ))}
     </div>
   </article>
 </Layout>

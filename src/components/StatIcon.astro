@@ -1,0 +1,51 @@
+---
+import arrowBack from '/arrow-back.svg?raw'
+import car from '/car.svg?raw'
+import flame from '/flame.svg?raw'
+import moodKid from '/mood-kid.svg?raw'
+import playerTrackNext from '/player-track-next.svg?raw'
+import whistle from '/whistle.svg?raw'
+
+const { stat } = Astro.props
+const { label, value, icon, positive } = stat
+
+const getColorClass = () => {
+  switch (value) {
+    case 3: return positive ? 'text-green-600' : 'text-red-600'
+    case 2: return 'text-yellow-600'
+    case 1: return positive ? 'text-red-600' : 'text-green-600'
+  }
+}
+
+const getIcon = () => {
+  switch (icon) {
+    case 'arrow-back': return arrowBack
+    case 'car': return car
+    case 'flame': return flame
+    case 'mood-kid': return moodKid
+    case 'player-track-next': return playerTrackNext
+    case 'whistle': return whistle
+  }
+}
+
+const getText = () => {
+  switch (value) {
+    case 3: return `${label}: Molt`
+    case 2: return `${label}: Regular`
+    case 1: return `${label}: Gens`
+  }
+}
+---
+
+<div >
+  <div class="group relative w-max">
+    <div class={`${getColorClass()} w-8 h-8`}>
+      <Fragment set:html={getIcon()} />
+    </div>
+    <span
+      class="pointer-events-none absolute -top-7 -left-32 w-max opacity-0 transition-opacity group-hover:opacity-100 bg-black/50 p-2 z-10 rounded-lg"
+    >
+      {getText()}
+    </span>
+  </div>
+</div>
