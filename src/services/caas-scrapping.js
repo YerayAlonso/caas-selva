@@ -79,6 +79,12 @@ export async function getAnimalDetails({ name }) {
     images.push(`${CAAS_URL}/${$(element).attr("src")}`);
   });
 
+  const extraImages = $("table p img")
+    .map((_, element) => {
+      return `${CAAS_URL}/${$(element).attr("src")}`;
+    })
+    .toArray();
+
   const stats = stat_labels;
 
   $("table table td.casella_selec").each((_, element) => {
@@ -102,6 +108,7 @@ export async function getAnimalDetails({ name }) {
     origin,
     checkInDate,
     images,
+    extraImages,
     stats,
   };
   return animal;
